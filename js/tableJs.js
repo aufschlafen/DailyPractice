@@ -37,7 +37,66 @@ let sourceData = [{
 }]
 
 $(document).ready(function(){
-	var str = '';
-	str += sourceData
-	$('#tbody').append(str);
+	var data=getData('','');
+	tableRender(data);
 });
+
+function changeProduct(){
+	var vs = $('#product').val(); 
+	 console.log(vs);
+	//tableRender(getData(vs,''));
+}
+function changeRegion(){
+	var vs = $('#Region  option:selected').val();  
+	tableRender(getData('',vs));
+}
+function tableRender(list){
+	$('#tbody').html('');
+	sourceData = list;
+	for(x in sourceData){
+		var str = '<tr>';
+		str += '<td>'+sourceData[x].product+'</td>';
+		str += '<td>'+sourceData[x].region+'</td>';
+		 for(var i =0;i<12;i++){
+			 str += '<td>'+sourceData[x].sale[i]+'</td>';
+			}
+		str += '</tr>'
+		$('#tbody').append(str);
+	}
+}
+
+function getData(device,region){
+	lists = [];
+	if(device == ''&& region !=''){
+		for(x in sourceData){
+			if(sourceData[x].region == region){
+				lists.push(sourceData[x]);
+			}
+		}
+	}
+	else if(device != ''&& region !=''){
+		for(x in sourceData){
+			if(sourceData[x].product == device){
+				lists.push(sourceData[x]);
+			}
+		}
+		var temp = [];
+		for(v in lists){
+			if(lists[v].region == region){
+				temp.push(list[v]);
+			}
+		}
+		lists = temp;
+	}
+	else if(device != ''&& region ==''){
+		for(x in sourceData){
+			if(sourceData[x].product == device){
+				lists.push(sourceData[x]);
+			}
+		}
+	}
+	else if(device == ''&& region ==''){
+		lists = sourceData;
+	}
+	return lists;
+}
