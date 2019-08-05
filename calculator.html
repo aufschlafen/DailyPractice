@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>IFE ECMAScript</title>
+	<!-- 基于上一个任务中，关于加减乘除的任务，加上对于特殊情况的判断，比如判断两个输入框是否都
+	是正常输入了数字类型的内容，比如除法的时候
+	除数是否为0，当判断到输入有异常的时候，把错误信息提示到Console中 -->
+</head>
+<body>        
+    <input id="first-number" type="number" value="0" placeholder="第一个数字">
+    <input id="second-number" type="number" value="0" placeholder="第二个数字">
+    <button id="add-btn" onclick="add()">加</button>
+    <button id="minus-btn" onclick="minus()">减</button>
+    <button id="times-btn" onclick="times()">乘</button>
+    <button id="divide-btn" onclick="devide()">除</button>
+    <p id="result">运算结果</p>
+    
+</body>
+<script type="text/javascript">
+		function checkNum(){
+			var n1 = Number(document.getElementById('first-number').value);
+			var n2 = Number(document.getElementById('second-number').value);
+			console.log(typeof n1,typeof n2,n1,n2);
+			if(typeof n1 !='number'||typeof n2 != 'number'){
+				console.log('no');
+			}
+			
+			return {n1,n2};
+		}
+		//document.getElementByTag('button').onclick = checkNum();
+		function add(){
+			var x = checkNum();
+			show(x.n1+x.n2);
+		}
+		function minus(num1,num2){
+			var x = checkNum();
+			show(x.n1-x.n2);
+		}
+		function times(n1,n2){
+			var x = checkNum();
+			show(x.n1*x.n2);
+		}
+		function devide(n1,n2){
+			var x = checkNum();
+			if(x.n2 ==0){
+				console.log('second is 0');
+				return false;
+			}
+			show(x.n1/x.n2);
+		}
+		
+		function show(result){
+			document.getElementById('result').innerHTML=result;
+		}
+    </script>
+</html>
